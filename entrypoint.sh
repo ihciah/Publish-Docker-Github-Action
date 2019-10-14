@@ -34,6 +34,7 @@ function main() {
     useBuildCache
   fi
 
+  removeSpectagPrefix
   if uses "${INPUT_SNAPSHOT}"; then
     pushWithSnapshot
   elif uses "${INPUT_SPECTAG}"; then
@@ -70,6 +71,13 @@ function translateDockerTag() {
     TAG="${GITHUB_SHA}"
   else
     TAG="${BRANCH}"
+  fi;
+}
+
+function removeSpectagPrefix() {
+  if uses "${INPUT_SPECTAG}"; then
+    INPUT_SPECTAG=${INPUT_SPECTAG#"refs/tags/v"}
+    INPUT_SPECTAG=${INPUT_SPECTAG#"refs/tags/V"}
   fi;
 }
 
