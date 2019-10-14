@@ -36,6 +36,8 @@ function main() {
 
   if uses "${INPUT_SNAPSHOT}"; then
     pushWithSnapshot
+  elif uses "${INPUT_SPECTAG}"; then
+    pushWithSpectag
   else
     pushWithoutSnapshot
   fi
@@ -126,6 +128,12 @@ function pushWithSnapshot() {
 function pushWithoutSnapshot() {
   docker build $BUILDPARAMS -t ${DOCKERNAME} .
   docker push ${DOCKERNAME}
+}
+
+function pushWithSpectag() {
+  docker build $BUILDPARAMS -t ${DOCKERNAME} -t ${INPUT_NAME}:${INPUT_SPECTAG} .
+  docker push ${DOCKERNAME}
+  docker push ${INPUT_NAME}:${INPUT_SPECTAG}
 }
 
 main

@@ -32,6 +32,9 @@ inputs:
   cache:
     description: 'Use cache when you have big images, that you would only like to build partially'
     required: false
+  spectag:
+    description: 'Use spectag when you want to specify the tag'
+    required: false
 outputs:
   tag:
     description: 'Is the tag, which was pushed'
